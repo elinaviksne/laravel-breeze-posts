@@ -35,11 +35,11 @@ class PostController extends Controller
         ]);
 
         $post = Post::create([
-            'title' => title,
-            'content' => content
+            'title' => $request->title,
+            'content' => $request->content
         ]);
 
-        return redirect()->route('post.show', $post)->with('status_code', 'Post created successfully.');
+        return redirect()->route('post.show', $post)->with('status', 'Post created successfully.');
     }
 
     /**
@@ -81,6 +81,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        $post = Post::find($id);
         $post->delete();
         return redirect()->route('post.index')->with('status', 'Post deleted successfully.');
     }    
